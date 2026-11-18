@@ -1,97 +1,214 @@
+<<<<<<< HEAD
 <div align="center">
+=======
+# 🤖 AGENTICA — Enterprise Multi-Agent AI Platform
+>>>>>>> deb95f2509f2988a27c00fbc9205178e371eb137
 
-# 🤖 AGENTICA: Enterprise Multi-Agent AI Platform
+<p align="center">
+  <strong>🤖 Multi-Agents. 🎯 One Goal. 🚀 Future-Ready Automation.</strong>
+  <br />
+  🌐 An Intelligent Multi-Agent Platform for Enterprise Automation.
+</p>
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-005571?logo=fastapi)](https://fastapi.tiangolo.com/)
-[![LangGraph](https://img.shields.io/badge/LangGraph-Orchestration-orange.svg)](https://github.com/langchain-ai/langgraph)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Status](https://img.shields.io/badge/Status-Active%20Development-success.svg)]()
-
-</div>
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?logo=python" alt="Python" />
+  <img src="https://img.shields.io/badge/FastAPI-0.110%2B-005571?logo=fastapi" alt="FastAPI" />
+  <img src="https://img.shields.io/badge/LangGraph-Orchestration-orange" alt="LangGraph" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License" />
+  <img src="https://img.shields.io/badge/Status-Active%20Development-success" alt="Active Development" />
+</p>
 
 ---
 
-## 💡 What is AGENTICA?
+## 💡 About AGENTICA
+
 > **AGENTICA = Agent + Intelligence + Collaboration + Automation**
 
-**AGENTICA** is an advanced, production-ready Multi-Agent AI platform designed to automate complex document processing, intelligent retrieval (RAG), and strict enterprise policy validation. By orchestrating specialized autonomous agents under a central **Supervisor Architecture**, AGENTICA transforms unstructured enterprise workflows into seamless, lightning-fast automated pipelines.
+**AGENTICA** is an advanced Multi-Agent AI platform designed to automate complex enterprise workflows through intelligent document processing, Retrieval-Augmented Generation (RAG), and strict policy validation.
+
+Built around a centralized **Supervisor Architecture**, AGENTICA coordinates specialized AI agents, allowing them to collaborate, exchange information, and execute tasks efficiently.
+
+The platform transforms unstructured enterprise documents and workflows into intelligent, automated, and reliable processes.
+
+### 🎯 Key Objectives
+
+- **Intelligent Automation:** Automate complex, multi-step enterprise workflows.
+- **Multi-Agent Collaboration:** Coordinate specialized agents through a centralized supervisor.
+- **Smart Document Processing:** Extract and process information from structured and unstructured documents.
+- **Knowledge Retrieval:** Retrieve relevant information using semantic search and RAG.
+- **Policy Compliance:** Validate information against enterprise rules and policies.
+- **Reliable Communication:** Ensure consistent data exchange through strict data contracts.
 
 ---
 
-## 🏗️ System Architecture & Core Modules (P1 - P7)
-The platform is structured into 7 modular, highly scalable components managed collaboratively across our 7-member engineering team:
+## 🏗️ System Architecture & Core Modules
 
-| Module | Component / Role | Core Technology | Description |
-| :---: | :--- | :--- | :--- |
-| **P1** | **Multi-Agent Supervisor** | LangGraph, Python | Central orchestration engine managing task delegation and state. |
-| **P2** | **RAG & Vector Storage** | Qdrant, LangChain | Semantic search and policy compliance retrieval. |
-| **P3** | **Core Backend & API** | FastAPI, Uvicorn | High-performance RESTful endpoints and service routing. |
-| **P4** | **Document AI (DocAI)** | PaddleOCR, OpenCV | High-accuracy text extraction and document parsing. |
-| **P5** | **Frontend UI & Dashboard** | React, TailwindCSS | User-friendly interactive control panel and chat interface. |
-| **P6** | **Integration & Pipeline** | Python, Webhooks | Cross-module synchronization and workflow execution pipelines. |
-| **P7** | **Validation & Error Handling**| Pydantic, Python | Strict data verification, contract validation, and error management. |
+AGENTICA is built using a modular architecture consisting of **seven specialized components (P1–P7)**, collaboratively developed by a seven-member engineering team.
 
+Each module has a clearly defined responsibility, ensuring scalability, maintainability, and seamless integration.
+
+| Module | Component | Core Technologies | Responsibilities |
+|:---:|---|---|---|
+| **P1** | Multi-Agent Supervisor | LangGraph, Python | Central orchestration, agent coordination, task delegation, and state management. |
+| **P2** | RAG & Vector Storage | Qdrant, LangChain | Semantic search, knowledge retrieval, and policy compliance support. |
+| **P3** | Core Backend & API | FastAPI, Uvicorn | RESTful API development, request handling, and service routing. |
+| **P4** | Document AI (DocAI) | PaddleOCR, OpenCV | OCR, text extraction, and intelligent document parsing. |
+| **P5** | Frontend UI & Dashboard | React, TailwindCSS | Interactive dashboard, user interface, and chat experience. |
+| **P6** | Integration & Pipeline | Python, Webhooks | Cross-module communication, workflow execution, and synchronization. |
+| **P7** | Validation & Error Handling | Pydantic, Python | Data validation, schema enforcement, contract verification, and error management. |
 
 ---
 
 ## 📂 Repository Structure
+
 ```text
 AGENTICA-AI/
-├── 📁 docs/
-│   └── CONTRACTS.md         # Strict data contracts & Pydantic schemas
-├── 📁 src/
-│   ├── 📁 supervisor/       # LangGraph orchestration logic (P1)
-│   ├── 📁 backend/          # FastAPI application & routers (P2)
-│   ├── 📁 rag/              # Vector DB & retrieval pipeline (P3)
-│   ├── 📁 docai/            # OCR and document processing (P4)
-│   ├── 📁 validation/       # Data contracts & verification (P5)
-│   ├── 📁 pipeline/         # Execution & sync pipelines (P6)
-│   └── 📁 frontend/         # React user interface (P7)
-├── 📄 requirements.txt      # Project Python dependencies
-└── 📄 README.md             # Project documentation
+│
+├── docs/
+│   └── CONTRACTS.md          # Data contracts and Pydantic schemas
+│
+├── src/
+│   ├── supervisor/           # Multi-Agent orchestration (P1)
+│   ├── rag/                  # RAG and vector database (P2)
+│   ├── backend/              # FastAPI application and routers (P3)
+│   ├── docai/                # OCR and document processing (P4)
+│   ├── frontend/             # React user interface (P5)
+│   ├── pipeline/             # Integration and execution pipelines (P6)
+│   └── validation/           # Data validation and error handling (P7)
+│
+├── requirements.txt          # Python dependencies
+└── README.md                 # Project documentation
+```
 
+---
 
-⚡ Quick Start & Installation
-Follow these steps to set up your local development environment:
+## 🛠️ Technology Stack
 
-1. Clone the Repository
-Bash
-git clone [https://github.com/Mohamed-Sobhy-2006/AGENTICA-AI.git](https://github.com/Mohamed-Sobhy-2006/AGENTICA-AI.git)
+| Category | Technologies |
+|---|---|
+| Programming Language | Python 3.10+ |
+| Backend Framework | FastAPI, Uvicorn |
+| Agent Orchestration | LangGraph |
+| LLM & RAG Framework | LangChain |
+| Vector Database | Qdrant |
+| Document Processing | PaddleOCR, OpenCV |
+| Frontend | React, TailwindCSS |
+| Data Validation | Pydantic |
+| Integration | Python, Webhooks |
+
+---
+
+## ⚡ Quick Start & Installation
+
+Follow these steps to set up the AGENTICA development environment locally.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Mohamed-Sobhy-2006/AGENTICA-AI.git
+
 cd AGENTICA-AI
+```
 
-2. Switch to Development Branch
-Bash
+### 2. Switch to the Development Branch
+
+```bash
 git checkout develop
+```
 
-3. Create and Activate Virtual Environment
-Bash
+### 3. Create a Virtual Environment
+
+```bash
 python -m venv venv
-# On Windows:
+```
+
+### 4. Activate the Virtual Environment
+
+**Windows:**
+
+```bash
 venv\Scripts\activate
-# On Linux/Mac:
+```
+
+**Linux / macOS:**
+
+```bash
 source venv/bin/activate
+```
 
-4. Install Dependencies
-Bash
+### 5. Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
+---
 
-📐 System Data Contracts
-All communication between modules adheres to strict JSON schemas defined in docs/CONTRACTS.md. This guarantees zero friction and high data integrity across the pipeline (from DocAI extraction to Supervisor reasoning).
+## 📐 System Data Contracts
+
+AGENTICA follows a strict data contract approach to ensure reliable communication and seamless integration between all system modules.
+
+All inter-module communication adheres to standardized JSON schemas defined in:
+
+```text
+docs/CONTRACTS.md
+```
+
+These contracts are implemented and validated using **Pydantic**, ensuring:
+
+- Consistent data structures across modules.
+- Type-safe communication.
+- Reliable request and response validation.
+- Early detection of invalid data.
+- Standardized error handling.
+- Better integration between independently developed components.
+
+This approach helps maintain data integrity throughout the entire pipeline, from document extraction to agent orchestration and final response generation.
+
+---
+
+## 🔄 Development Workflow
+
+The project follows a modular development approach in which each engineer is responsible for a dedicated component.
+
+The development workflow focuses on:
+
+1. Independent module development.
+2. Standardized communication through shared data contracts.
+3. Integration between modules.
+4. Testing and validation.
+5. Continuous improvements and error handling.
+
+---
 
 ## 👥 The Engineering Team
-Developed with passion and precision under our core operational slogan: 
+
+AGENTICA is developed by a collaborative team of **seven engineers**, each contributing specialized expertise to build and integrate the platform's core components.
+
 > **"Seven Agents. One Mission. Zero Limits."**
 
-The brilliant minds orchestrating the **AGENTICA** ecosystem:
-
 | Role / Module | Engineer | GitHub Profile | Core Focus |
-| :--- | :--- | :--- | :--- |
-| **Project Lead & P1** | 👑 **Mohamed Sobhy Mohamed Awad** | [🔗 @Mohamed-Sobhy-2006](https://github.com/Mohamed-Sobhy-2006) | Multi-Agent Supervisor & LangGraph Orchestration |
-| **P2** | 🧠 **Nora Walid Ibrahim** | [🔗 @NoraWalid](https://github.com) | RAG, Knowledge Base & Vector Storage |
-| **P3** | ⚙️ **Mohamed Ayman Yahia** | [🔗 @MohamedAyman](https://github.com) | Core Backend, APIs & Service Routing |
-| **P4** | 📄 **Fatma Saber Mohamed** | [🔗 @FatmaSaber](https://github.com) | Document AI, OCR & Advanced Parsing |
-| **P5** | 💻 **Maysoon Ibrahim Ahmed** | [🔗 @MaysoonIbrahim](https://github.com) | Frontend UI & Interactive Dashboard |
-| **P6** | ⚡ **Nour Adel Mohamed** | [🔗 @NourAdel](https://github.com) | Integration, Workflows & Webhooks |
-| **P7** | 🛡️ **Mohamed Amir Abouzeid** | [🔗 @MohamedAmir](https://github.com) | Validation, Data Contracts & Error Handling |
+|---|---|---|---|
+| **Project Lead & P1** | 👑 **Mohamed Sobhy Mohamed** | [@Mohamed-Sobhy-2006](https://github.com/Mohamed-Sobhy-2006) | Multi-Agent Supervisor & LangGraph Orchestration |
+| **P2** | 🧠 **Nora Walid Ibrahim** | [@NoraWalid](https://github.com) | RAG, Knowledge Base & Vector Storage |
+| **P3** | ⚙️ **Mohamed Ayman Yahia** | [@MohamedAymanDev](https://github.com) | Core Backend, APIs & Service Routing |
+| **P4** | 📄 **Fatma Saber Mohamed** | [@FatmaSaber](https://github.com) | Document AI, OCR & Advanced Parsing |
+| **P5** | 💻 **Maysoon Ibrahim Ahmed** | [@MaysoonIbrahim](https://github.com) | Frontend UI & Interactive Dashboard |
+| **P6** | 🔎 **Nour Adel Mohamed** | [@NourAdel](https://github.com) | Integration, Workflows & Webhooks |
+| **P7** | 🛡️ **Mohamed Amir Abouzeid** | [@Mohamed-Amir-Abozaid](https://github.com) | Validation, Data Contracts & Error Handling |
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+See the [LICENSE](LICENSE) file for more information.
+
+---
+
+<p align="center">
+  <strong>AGENTICA — Seven Agents. One Mission. Zero Limits.</strong>
+  <br />
+  Built with ❤️ by the AGENTICA Engineering Team.
+</p>
