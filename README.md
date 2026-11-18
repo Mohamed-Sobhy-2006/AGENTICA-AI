@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<div align="center">
-=======
 # 🤖 AGENTICA — Enterprise Multi-Agent AI Platform
->>>>>>> deb95f2509f2988a27c00fbc9205178e371eb137
 
 <p align="center">
   <strong>🤖 Multi-Agents. 🎯 One Goal. 🚀 Future-Ready Automation.</strong>
@@ -190,12 +186,12 @@ AGENTICA is developed by a collaborative team of **seven engineers**, each contr
 | Role / Module | Engineer | GitHub Profile | Core Focus |
 |---|---|---|---|
 | **Project Lead & P1** | 👑 **Mohamed Sobhy Mohamed** | [@Mohamed-Sobhy-2006](https://github.com/Mohamed-Sobhy-2006) | Multi-Agent Supervisor & LangGraph Orchestration |
-| **P2** | 🧠 **Nora Walid Ibrahim** | [@NoraWalid](https://github.com) | RAG, Knowledge Base & Vector Storage |
-| **P3** | ⚙️ **Mohamed Ayman Yahia** | [@MohamedAymanDev](https://github.com) | Core Backend, APIs & Service Routing |
-| **P4** | 📄 **Fatma Saber Mohamed** | [@FatmaSaber](https://github.com) | Document AI, OCR & Advanced Parsing |
-| **P5** | 💻 **Maysoon Ibrahim Ahmed** | [@MaysoonIbrahim](https://github.com) | Frontend UI & Interactive Dashboard |
-| **P6** | 🔎 **Nour Adel Mohamed** | [@NourAdel](https://github.com) | Integration, Workflows & Webhooks |
-| **P7** | 🛡️ **Mohamed Amir Abouzeid** | [@Mohamed-Amir-Abozaid](https://github.com) | Validation, Data Contracts & Error Handling |
+| **P2** | 🧠 **Nora Walid Ibrahim** | [@Nora-Walid](https://github.com/Nora-Walid) | RAG, Knowledge Base & Vector Storage |
+| **P3** | ⚙️ **Mohamed Ayman Yahia** | [@MohamedAymanDev](https://github.com/MohamedAymanDev) | Core Backend, APIs & Service Routing |
+| **P4** | 📄 **Fatma Saber Mohamed** | [@Fatma2005elgendy](https://github.com/Fatma2005elgendy) | Document AI, OCR & Advanced Parsing |
+| **P5** | 💻 **Maisoun Ibrahim Ahmed** | [@Maisounebrahim](https://github.com/Maisounebrahim) | Frontend UI & Interactive Dashboard |
+| **P6** | 🔎 **Nour Adel Mohamed** | [@nuuradelmuhammed](https://github.com/nuuradelmuhammed) | Integration, Workflows & Webhooks |
+| **P7** | 🛡️ **Mohamed Amir Abouzeid** | [@Mohamed-Amir-Abozaid](https://github.com/Mohamed-Amir-Abozaid) | Validation, Data Contracts & Error Handling |
 
 ---
 
