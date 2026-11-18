@@ -1,4 +1,3 @@
-Markdown
 <div align="center">
 
 # 🤖 AGENTICA: Enterprise Multi-Agent AI Platform
