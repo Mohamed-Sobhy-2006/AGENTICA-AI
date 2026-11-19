@@ -189,7 +189,7 @@ AGENTICA is developed by a collaborative team of **seven engineers**, each contr
 | **P2** | 🧠 **Nora Walid Ibrahim** | [@Nora-Walid](https://github.com/Nora-Walid) | RAG, Knowledge Base & Vector Storage |
 | **P3** | ⚙️ **Mohamed Ayman Yahia** | [@MohamedAymanDev](https://github.com/MohamedAymanDev) | Core Backend, APIs & Service Routing |
 | **P4** | 📄 **Fatma Saber Mohamed** | [@Fatma2005elgendy](https://github.com/Fatma2005elgendy) | Document AI, OCR & Advanced Parsing |
-| **P5** | 💻 **Maisoun Ibrahim Ahmed** | [@Maisounebrahim](https://github.com/Maisounebrahim) | Frontend UI & Interactive Dashboard |
+| **P5** | 💻 **Maisoun Ebrahim Ahmed** | [@Maisounebrahim](https://github.com/Maisounebrahim) | Frontend UI & Interactive Dashboard |
 | **P6** | 🔎 **Nour Adel Mohamed** | [@nuuradelmuhammed](https://github.com/nuuradelmuhammed) | Integration, Workflows & Webhooks |
 | **P7** | 🛡️ **Mohamed Amir Abouzeid** | [@Mohamed-Amir-Abozaid](https://github.com/Mohamed-Amir-Abozaid) | Validation, Data Contracts & Error Handling |
 
