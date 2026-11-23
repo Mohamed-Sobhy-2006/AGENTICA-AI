@@ -1,0 +1,1 @@
+# Pydantic data contracts and DocumentResult schema for DocAI 
