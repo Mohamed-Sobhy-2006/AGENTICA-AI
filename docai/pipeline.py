@@ -1,6 +1,6 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Union
+from typing import Any
 
 from docai.classifier import classify_document, extract_structured_data
 from docai.extractor import extract_text
@@ -15,9 +15,9 @@ class DocAIError(Exception):
         self.error_code = error_code
         self.message = message
         self.details = details
-        self.timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        self.timestamp = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "error_code": self.error_code,
             "message": self.message,
@@ -26,7 +26,7 @@ class DocAIError(Exception):
         }
 
 
-def process_document(file_path: Union[str, Path]) -> DocumentResult:
+def process_document(file_path: str | Path) -> DocumentResult:
     """
     End-to-end DocAI (P4) pipeline entry point:
     1. Validate file existence.
@@ -59,7 +59,9 @@ def process_document(file_path: Union[str, Path]) -> DocumentResult:
         ) from exc
 
     doc_type = classify_document(raw_text, filename=path.name)
-    structured = extract_structured_data(raw_text, doc_type=doc_type, filename=path.name)
+    structured = extract_structured_data(
+        raw_text, doc_type=doc_type, filename=path.name
+    )
 
     return DocumentResult(
         filename=path.name,
@@ -71,14 +73,14 @@ def process_document(file_path: Union[str, Path]) -> DocumentResult:
 
 
 def process_batch(
-    file_paths: List[Union[str, Path]],
+    file_paths: list[str | Path],
     skip_errors: bool = False,
-) -> List[DocumentResult]:
+) -> list[DocumentResult]:
     """
     Process multiple documents sequentially and return a list of DocumentResult objects.
     If skip_errors=True, failed files are skipped instead of halting the batch.
     """
-    results: List[DocumentResult] = []
+    results: list[DocumentResult] = []
     for fp in file_paths:
         try:
             results.append(process_document(fp))

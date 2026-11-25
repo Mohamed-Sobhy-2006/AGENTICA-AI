@@ -1,7 +1,8 @@
-from pathlib import Path
 import tempfile
-from docx import Document
+from pathlib import Path
+
 import pytest
+from docx import Document
 
 from docai import (
     DocAIError,
@@ -115,7 +116,10 @@ def test_email_and_generic_classification():
         assert email_res.structured_data["subject"] == "DocAI Pipeline Review"
 
         generic_file = Path(tmpdir) / "notes.txt"
-        generic_file.write_text("Random internal meeting notes without specific structure.", encoding="utf-8")
+        generic_file.write_text(
+            "Random internal meeting notes without specific structure.",
+            encoding="utf-8",
+        )
         generic_res = process_document(generic_file)
         assert generic_res.doc_type == "generic"
         assert "raw_preview" in generic_res.structured_data
@@ -138,7 +142,9 @@ def test_error_handling_contracts():
 def test_batch_processing():
     """Verify process_batch runs cleanly across multiple files."""
     files = [
-        p for p in [DATA_DIR / "invoice_001.pdf", DATA_DIR / "cv_11850315.pdf"] if p.exists()
+        p
+        for p in [DATA_DIR / "invoice_001.pdf", DATA_DIR / "cv_11850315.pdf"]
+        if p.exists()
     ]
     if not files:
         pytest.skip("No sample files available for batch test")

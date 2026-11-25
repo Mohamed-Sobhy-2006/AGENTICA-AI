@@ -1,6 +1,7 @@
 import os
 import shutil
 import zipfile
+
 from PIL import Image
 
 
@@ -32,13 +33,17 @@ def build_tests_data(
 
     # 2. Extract 5 JPG invoices and convert them to image-based (scanned) PDFs
     with zipfile.ZipFile(invoices_img_zip, "r") as zf:
-        jpg_invoices = sorted([f for f in zf.namelist() if f.lower().endswith(".jpg")])[:5]
+        jpg_invoices = sorted([f for f in zf.namelist() if f.lower().endswith(".jpg")])[
+            :5
+        ]
         for f in jpg_invoices:
             zf.extract(f, tmp_dir)
             img_path = os.path.join(tmp_dir, f)
             pdf_name = os.path.splitext(os.path.basename(f))[0] + "_scanned.pdf"
             with Image.open(img_path) as im:
-                im.convert("RGB").save(os.path.join(output_dir, pdf_name), "PDF", resolution=150.0)
+                im.convert("RGB").save(
+                    os.path.join(output_dir, pdf_name), "PDF", resolution=150.0
+                )
 
     # 3. Extract 10 diverse CV PDFs
     selected_cvs = [
@@ -57,7 +62,9 @@ def build_tests_data(
         available = set(zf.namelist())
         picked = [c for c in selected_cvs if c in available]
         if len(picked) < 10:
-            extra = [f for f in sorted(available) if f.endswith(".pdf") and f not in picked]
+            extra = [
+                f for f in sorted(available) if f.endswith(".pdf") and f not in picked
+            ]
             picked.extend(extra[: 10 - len(picked)])
         for f in picked[:10]:
             zf.extract(f, tmp_dir)

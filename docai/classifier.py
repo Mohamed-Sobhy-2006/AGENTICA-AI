@@ -1,11 +1,11 @@
 # Document type classification and structured data extraction module
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from docai.schemas import (
-    CVData,
     ContactInfo,
+    CVData,
     DocType,
     EducationItem,
     EmailData,
@@ -23,23 +23,44 @@ def classify_document(text: str, filename: str = "") -> DocType:
 
     # _________________________________________________________________________________________________________
     invoice_keywords = [
-        "invoice", "invoice no", "invoice #", "bill to", "subtotal",
-        "total amount", "amount due", "tax", "vat", "receipt", "seller:",
-        "date of issue", "grand total",
+        "invoice",
+        "invoice no",
+        "invoice #",
+        "bill to",
+        "subtotal",
+        "total amount",
+        "amount due",
+        "tax",
+        "vat",
+        "receipt",
+        "seller:",
+        "date of issue",
+        "grand total",
     ]
     invoice_score = sum(1 for kw in invoice_keywords if kw in sample)
 
     # _________________________________________________________________________________________________________
     cv_keywords = [
-        "curriculum vitae", "resume", "work experience", "experience",
-        "education", "skills", "certifications", "projects", "linkedin.com",
-        "summary", "objective", "languages",
+        "curriculum vitae",
+        "resume",
+        "work experience",
+        "experience",
+        "education",
+        "skills",
+        "certifications",
+        "projects",
+        "linkedin.com",
+        "summary",
+        "objective",
+        "languages",
     ]
     cv_score = sum(1 for kw in cv_keywords if kw in sample)
 
     # _________________________________________________________________________________________________________
     email_headers = ["from:", "to:", "subject:", "sent:", "cc:", "bcc:"]
-    email_score = sum(1 for h in email_headers if re.search(rf"^{re.escape(h)}", sample, re.MULTILINE))
+    email_score = sum(
+        1 for h in email_headers if re.search(rf"^{re.escape(h)}", sample, re.MULTILINE)
+    )
 
     if invoice_score >= 2 and invoice_score >= cv_score:
         return "invoice"
@@ -52,7 +73,7 @@ def classify_document(text: str, filename: str = "") -> DocType:
 
 
 # _________________________________________________________________________________________________________
-def _parse_invoice(text: str) -> Dict[str, Any]:
+def _parse_invoice(text: str) -> dict[str, Any]:
     """Extract structured invoice fields matching both dataset labels and CONTRACTS.md."""
     lines = [line.strip() for line in text.splitlines() if line.strip()]
 
@@ -75,7 +96,7 @@ def _parse_invoice(text: str) -> Dict[str, Any]:
     date_val = date_match.group(1).strip() if date_match else None
 
     # (Vendor / Vendor Name)
-    vendor: Optional[str] = None
+    vendor: str | None = None
     for idx, line in enumerate(lines):
         if re.match(r"^seller\s*:?$", line, re.IGNORECASE):
             for next_line in lines[idx + 1 : idx + 4]:
@@ -85,7 +106,15 @@ def _parse_invoice(text: str) -> Dict[str, Any]:
             break
 
     if not vendor:
-        skip_prefixes = ("invoice", "tax invoice", "receipt", "date", "bill to", "seller", "client")
+        skip_prefixes = (
+            "invoice",
+            "tax invoice",
+            "receipt",
+            "date",
+            "bill to",
+            "seller",
+            "client",
+        )
         for line in lines[:6]:
             low = line.lower()
             if (
@@ -97,8 +126,8 @@ def _parse_invoice(text: str) -> Dict[str, Any]:
                 break
 
     # (Amount & Currency)
-    amount: Optional[float] = None
-    currency: Optional[str] = None
+    amount: float | None = None
+    currency: str | None = None
 
     total_block_match = re.search(
         r"(?:grand\s+total|total\s+amount|amount\s+due|balance\s+due|total)\b(.{0,120})",
@@ -149,7 +178,7 @@ def _parse_invoice(text: str) -> Dict[str, Any]:
 
 
 # _________________________________________________________________________________________________________
-def _extract_cv_section(text: str, section_names: List[str]) -> str:
+def _extract_cv_section(text: str, section_names: list[str]) -> str:
     """Helper to slice out the body of a specific CV section until the next major heading."""
     all_headings = (
         r"summary|profile|objective|skills|technical\s+skills|core\s+competencies|"
@@ -163,12 +192,12 @@ def _extract_cv_section(text: str, section_names: List[str]) -> str:
 
 
 # _________________________________________________________________________________________________________
-def _parse_cv(text: str, filename: str = "") -> Dict[str, Any]:
+def _parse_cv(text: str, filename: str = "") -> dict[str, Any]:
     """Extract structured 9-field schema from a CV/Resume into CVData."""
     lines = [line.strip() for line in text.splitlines() if line.strip()]
 
     # (name)
-    name: Optional[str] = None
+    name: str | None = None
     for line in lines[:5]:
         if (
             "@" not in line
@@ -199,17 +228,25 @@ def _parse_cv(text: str, filename: str = "") -> Dict[str, Any]:
     summary = " ".join(raw_summary.split())[:600]
 
     # (Skills)
-    raw_skills_block = _extract_cv_section(text, ["skills", "technical skills", "core competencies"])
-    skills: List[str] = []
+    raw_skills_block = _extract_cv_section(
+        text, ["skills", "technical skills", "core competencies"]
+    )
+    skills: list[str] = []
     if raw_skills_block:
         tokens = re.split(r"[,|•·▪\n]", raw_skills_block)
-        skills = [t.strip(" -–:\t") for t in tokens if 1 < len(t.strip(" -–:\t")) <= 40][:30]
+        skills = [
+            t.strip(" -–:\t") for t in tokens if 1 < len(t.strip(" -–:\t")) <= 40
+        ][:30]
 
     # (Experience)
-    raw_exp_block = _extract_cv_section(text, ["work experience", "experience", "employment history"])
-    experience: List[ExperienceItem] = []
+    raw_exp_block = _extract_cv_section(
+        text, ["work experience", "experience", "employment history"]
+    )
+    experience: list[ExperienceItem] = []
     if raw_exp_block:
-        exp_chunks = [c.strip() for c in re.split(r"\n\s*\n", raw_exp_block) if c.strip()][:5]
+        exp_chunks = [
+            c.strip() for c in re.split(r"\n\s*\n", raw_exp_block) if c.strip()
+        ][:5]
         for chunk in exp_chunks:
             chunk_lines = [l.strip() for l in chunk.splitlines() if l.strip()]
             title_line = chunk_lines[0] if chunk_lines else None
@@ -222,15 +259,19 @@ def _parse_cv(text: str, filename: str = "") -> Dict[str, Any]:
                 ExperienceItem(
                     title=title_line,
                     duration=dur_m.group(1).strip() if dur_m else None,
-                    description=" ".join(chunk_lines[1:])[:300] if len(chunk_lines) > 1 else None,
+                    description=" ".join(chunk_lines[1:])[:300]
+                    if len(chunk_lines) > 1
+                    else None,
                 )
             )
 
     # (Education)
     raw_edu_block = _extract_cv_section(text, ["education", "academic"])
-    education: List[EducationItem] = []
+    education: list[EducationItem] = []
     if raw_edu_block:
-        edu_chunks = [c.strip() for c in re.split(r"\n\s*\n", raw_edu_block) if c.strip()][:3]
+        edu_chunks = [
+            c.strip() for c in re.split(r"\n\s*\n", raw_edu_block) if c.strip()
+        ][:3]
         for chunk in edu_chunks:
             chunk_lines = [l.strip() for l in chunk.splitlines() if l.strip()]
             year_m = re.search(r"\b(19\d{2}|20\d{2})\b", chunk)
@@ -244,7 +285,7 @@ def _parse_cv(text: str, filename: str = "") -> Dict[str, Any]:
 
     # (Certifications)
     raw_cert_block = _extract_cv_section(text, ["certifications", "certificates"])
-    certifications: List[str] = []
+    certifications: list[str] = []
     if raw_cert_block:
         certifications = [
             line.strip(" -–•·\t")
@@ -269,7 +310,7 @@ def _parse_cv(text: str, filename: str = "") -> Dict[str, Any]:
 
 
 # _________________________________________________________________________________________________________
-def _parse_email(text: str) -> Dict[str, Any]:
+def _parse_email(text: str) -> dict[str, Any]:
     """Extract headers and body preview from an email document."""
     subject_m = re.search(r"^subject:\s*(.+)$", text, re.IGNORECASE | re.MULTILINE)
     sender_m = re.search(r"^from:\s*(.+)$", text, re.IGNORECASE | re.MULTILINE)
@@ -287,7 +328,9 @@ def _parse_email(text: str) -> Dict[str, Any]:
 
 
 # _________________________________________________________________________________________________________
-def extract_structured_data(text: str, doc_type: DocType, filename: str = "") -> Dict[str, Any]:
+def extract_structured_data(
+    text: str, doc_type: DocType, filename: str = ""
+) -> dict[str, Any]:
     """Route raw text to the appropriate structured parser based on doc_type."""
     if doc_type == "invoice":
         return _parse_invoice(text)

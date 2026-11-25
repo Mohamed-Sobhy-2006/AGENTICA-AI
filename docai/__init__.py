@@ -3,11 +3,11 @@ from docai.pipeline import DocAIError, process_batch, process_document
 from docai.schemas import CVData, DocumentResult, EmailData, InvoiceData
 
 __all__ = [
-    "process_document",
-    "process_batch",
+    "CVData",
     "DocAIError",
     "DocumentResult",
-    "InvoiceData",
-    "CVData",
     "EmailData",
+    "InvoiceData",
+    "process_batch",
+    "process_document",
 ]

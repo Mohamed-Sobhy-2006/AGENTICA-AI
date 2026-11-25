@@ -1,80 +1,87 @@
-# Pydantic data contracts and DocumentResult schema for DocAI 
+# Pydantic data contracts and DocumentResult schema for DocAI
 
-from datetime import datetime, timezone
-from typing import Any, Dict, List, Literal, Optional
 import uuid
-from pydantic import BaseModel, Field
+from datetime import UTC, datetime
+from typing import Any, Literal
 
+from pydantic import BaseModel, Field
 
 DocType = Literal["invoice", "cv", "email", "generic"]
 
 
 class InvoiceData(BaseModel):
     """Structured fields extracted from an invoice document."""
-    invoice_number: Optional[str] = None
-    vendor: Optional[str] = None
-    vendor_name: Optional[str] = None
-    date: Optional[str] = None
-    amount: Optional[float] = None
-    total_amount: Optional[float] = None
-    currency: Optional[str] = None
+
+    invoice_number: str | None = None
+    vendor: str | None = None
+    vendor_name: str | None = None
+    date: str | None = None
+    amount: float | None = None
+    total_amount: float | None = None
+    currency: str | None = None
 
 
 class ContactInfo(BaseModel):
     """Contact details section for a CV."""
-    email: Optional[str] = None
-    phone: Optional[str] = None
-    location: Optional[str] = None
-    linkedin: Optional[str] = None
+
+    email: str | None = None
+    phone: str | None = None
+    location: str | None = None
+    linkedin: str | None = None
 
 
 class ExperienceItem(BaseModel):
     """Single work experience entry in a CV."""
-    title: Optional[str] = None
-    company: Optional[str] = None
-    duration: Optional[str] = None
-    description: Optional[str] = None
+
+    title: str | None = None
+    company: str | None = None
+    duration: str | None = None
+    description: str | None = None
 
 
 class EducationItem(BaseModel):
     """Single education entry in a CV."""
-    degree: Optional[str] = None
-    institution: Optional[str] = None
-    date: Optional[str] = None
+
+    degree: str | None = None
+    institution: str | None = None
+    date: str | None = None
 
 
 class CVData(BaseModel):
     """Unified 9-field structured schema extracted from a CV/Resume."""
-    file_name: Optional[str] = None
-    layout_type: Optional[str] = None
-    name: Optional[str] = None
+
+    file_name: str | None = None
+    layout_type: str | None = None
+    name: str | None = None
     contact: ContactInfo = Field(default_factory=ContactInfo)
-    summary: Optional[str] = ""
-    skills: List[str] = Field(default_factory=list)
-    experience: List[ExperienceItem] = Field(default_factory=list)
-    education: List[EducationItem] = Field(default_factory=list)
-    certifications: List[str] = Field(default_factory=list)
+    summary: str | None = ""
+    skills: list[str] = Field(default_factory=list)
+    experience: list[ExperienceItem] = Field(default_factory=list)
+    education: list[EducationItem] = Field(default_factory=list)
+    certifications: list[str] = Field(default_factory=list)
 
 
 class EmailData(BaseModel):
     """Structured fields extracted from an email document."""
-    subject: Optional[str] = None
-    sender: Optional[str] = None
-    recipient: Optional[str] = None
-    date: Optional[str] = None
-    body: Optional[str] = None
+
+    subject: str | None = None
+    sender: str | None = None
+    recipient: str | None = None
+    date: str | None = None
+    body: str | None = None
 
 
 class DocumentResult(BaseModel):
     """
     Core Document AI output contract (P4) shared with Supervisor (P1) and RAG (P3).
     """
+
     document_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     filename: str
     doc_type: DocType = "generic"
     extracted_text: str = ""
-    structured_data: Dict[str, Any] = Field(default_factory=dict)
+    structured_data: dict[str, Any] = Field(default_factory=dict)
     confidence_score: float = Field(default=0.0, ge=0.0, le=1.0)
     processed_at: str = Field(
-        default_factory=lambda: datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        default_factory=lambda: datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
     )

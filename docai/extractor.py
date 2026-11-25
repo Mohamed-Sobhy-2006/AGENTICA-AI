@@ -1,21 +1,25 @@
 import io
+import logging
 import os
 from pathlib import Path
-from typing import List, Tuple
 
 import numpy as np
-from PIL import Image
-import pymupdf as fitz 
+import pymupdf as fitz
 from docx import Document
 from docx.oxml.table import CT_Tbl
 from docx.oxml.text.paragraph import CT_P
 from docx.table import Table
 from docx.text.paragraph import Paragraph
+from PIL import Image
+
+logger = logging.getLogger(__name__)
 
 _OCR_ENGINE = None
 
 _BLIP_TAG = "{http://schemas.openxmlformats.org/drawingml/2006/main}blip"
-_EMBED_ATTR = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed"
+_EMBED_ATTR = (
+    "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed"
+)
 
 
 def _get_ocr_engine():
@@ -25,9 +29,10 @@ def _get_ocr_engine():
         os.environ["FLAGS_use_mkldnn"] = "0"
         os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] = "True"
         from paddleocr import PaddleOCR
+
         try:
             _OCR_ENGINE = PaddleOCR(
-                use_textline_orientation=True,   
+                use_textline_orientation=True,
                 lang="en",
                 enable_mkldnn=False,
             )
@@ -48,15 +53,20 @@ def _prepare_image_for_ocr(img: Image.Image, max_dim: int = 2200) -> np.ndarray:
     return np.array(rgb_img)
 
 
-def _run_paddle_ocr(image_input) -> Tuple[str, float]:
+def _run_paddle_ocr(image_input) -> tuple[str, float]:
     """Safely run PaddleOCR (v3.x or v2.x) and return (text, character_weighted_confidence)."""
     ocr = _get_ocr_engine()
     try:
-        result = ocr.predict(image_input) if hasattr(ocr, "predict") else ocr.ocr(image_input)
-    except Exception:
+        result = (
+            ocr.predict(image_input)
+            if hasattr(ocr, "predict")
+            else ocr.ocr(image_input)
+        )
+    except (OSError, RuntimeError, ValueError) as exc:
+        logger.warning("PaddleOCR failed on image input: %s", exc)
         return "", 0.0
 
-    lines: List[str] = []
+    lines: list[str] = []
     weighted_sum = 0.0
     total_chars = 0
 
@@ -96,7 +106,7 @@ def _run_paddle_ocr(image_input) -> Tuple[str, float]:
     return full_text, avg_conf
 
 
-def _weighted_average(segments: List[Tuple[str, float]]) -> float:
+def _weighted_average(segments: list[tuple[str, float]]) -> float:
     """Compute confidence score weighted by the character length of each segment."""
     total_chars = sum(len(text) for text, _ in segments if text)
     if total_chars == 0:
@@ -105,13 +115,13 @@ def _weighted_average(segments: List[Tuple[str, float]]) -> float:
     return round(weighted_sum / total_chars, 4)
 
 
-def extract_from_pdf(file_path: str, max_pages: int = 30) -> Tuple[str, float]:
+def extract_from_pdf(file_path: str, max_pages: int = 30) -> tuple[str, float]:
     """
     Extract text from a PDF using PyMuPDF (with reading-order sort).
     Automatically falls back to PaddleOCR for scanned/image-based pages (< 50 chars).
     """
     doc = fitz.open(file_path)
-    segments: List[Tuple[str, float]] = []
+    segments: list[tuple[str, float]] = []
 
     for page_idx, page in enumerate(doc):
         if page_idx >= max_pages:
@@ -134,7 +144,7 @@ def extract_from_pdf(file_path: str, max_pages: int = 30) -> Tuple[str, float]:
     return combined_text, _weighted_average(segments)
 
 
-def extract_from_image(file_path: str) -> Tuple[str, float]:
+def extract_from_image(file_path: str) -> tuple[str, float]:
     """Extract text and confidence from an image file using PaddleOCR."""
     with Image.open(file_path) as img:
         img_array = _prepare_image_for_ocr(img)
@@ -143,10 +153,10 @@ def extract_from_image(file_path: str) -> Tuple[str, float]:
 
 def _extract_table_text(table: Table) -> str:
     """Extract rows from a Word table while skipping horizontally merged duplicate cells."""
-    rows_out: List[str] = []
+    rows_out: list[str] = []
     for row in table.rows:
         seen_cells = set()
-        unique_cells: List[str] = []
+        unique_cells: list[str] = []
         for cell in row.cells:
             cell_id = id(cell._tc)
             if cell_id not in seen_cells:
@@ -159,9 +169,11 @@ def _extract_table_text(table: Table) -> str:
     return "\n".join(rows_out)
 
 
-def _extract_paragraph_images(paragraph: Paragraph, doc: Document) -> List[Tuple[str, float]]:
+def _extract_paragraph_images(
+    paragraph: Paragraph, doc: Document
+) -> list[tuple[str, float]]:
     """Extract and OCR any meaningful embedded images (>= 150x150 px) inside a paragraph."""
-    image_segments: List[Tuple[str, float]] = []
+    image_segments: list[tuple[str, float]] = []
     for blip in paragraph._element.iter(_BLIP_TAG):
         rel_id = blip.get(_EMBED_ATTR)
         if not rel_id or rel_id not in doc.part.related_parts:
@@ -175,22 +187,25 @@ def _extract_paragraph_images(paragraph: Paragraph, doc: Document) -> List[Tuple
             ocr_text, ocr_conf = _run_paddle_ocr(img_array)
             if ocr_text:
                 image_segments.append((ocr_text, ocr_conf))
-        except Exception:
+        except (OSError, RuntimeError, ValueError) as exc:
+            logger.warning("Failed to run OCR on embedded image: %s", exc)
             continue
     return image_segments
 
 
-def extract_from_docx(file_path: str) -> Tuple[str, float]:
+def extract_from_docx(file_path: str) -> tuple[str, float]:
     """
     Extract text from a .docx file in exact document flow order:
     Headers -> Body (Paragraphs, inline Images via OCR, deduplicated Tables) -> Footers.
     """
     doc = Document(file_path)
-    segments: List[Tuple[str, float]] = []
+    segments: list[tuple[str, float]] = []
 
     seen_headers = set()
     for section in doc.sections:
-        header_lines = [p.text.strip() for p in section.header.paragraphs if p.text.strip()]
+        header_lines = [
+            p.text.strip() for p in section.header.paragraphs if p.text.strip()
+        ]
         header_block = "\n".join(header_lines)
         if header_block and header_block not in seen_headers:
             seen_headers.add(header_block)
@@ -211,7 +226,9 @@ def extract_from_docx(file_path: str) -> Tuple[str, float]:
 
     seen_footers = set()
     for section in doc.sections:
-        footer_lines = [p.text.strip() for p in section.footer.paragraphs if p.text.strip()]
+        footer_lines = [
+            p.text.strip() for p in section.footer.paragraphs if p.text.strip()
+        ]
         footer_block = "\n".join(footer_lines)
         if footer_block and footer_block not in seen_footers:
             seen_footers.add(footer_block)
@@ -221,7 +238,7 @@ def extract_from_docx(file_path: str) -> Tuple[str, float]:
     return combined_text, _weighted_average(segments)
 
 
-def extract_text(file_path: str) -> Tuple[str, float]:
+def extract_text(file_path: str) -> tuple[str, float]:
     """
     Main entry point: detect file extension and extract (raw_text, confidence_score).
     """
