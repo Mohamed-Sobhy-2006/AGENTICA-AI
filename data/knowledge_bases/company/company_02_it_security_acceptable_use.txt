@@ -1,0 +1,23 @@
+---
+tag: synthetic test data
+department_id: company
+classification_level: 2
+document_type: policy
+effective_date: 2026-02-20
+---
+
+# Information Security & Acceptable Use Policy
+
+## 1. Access & Authentication
+- Multi-Factor Authentication (MFA) is mandatory across all corporate email, VPN, GitHub, and cloud storage accounts.
+- Passwords must be at least **14 characters** long and never shared via chat or email.
+
+## 2. Phishing & Suspicious Email Reporting
+- Employees must never download unexpected attachments or click unverified links from external domains.
+- Suspected phishing or BEC spoofing emails must be forwarded immediately to the IT Security & Support queue (`security@company-internal.com`).
+
+## 3. Data Classification Handling
+- **Level 1 (Public/Internal General):** Shareable internally across all staff.
+- **Level 2 (Departmental Operational):** Restricted to relevant department personnel.
+- **Level 3 (Confidential):** Encrypted storage required; no external forwarding without manager sign-off.
+- **Level 4 (Restricted Executive):** Strictly limited to authorized leadership roles.

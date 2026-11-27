@@ -1,0 +1,22 @@
+---
+tag: synthetic test data
+department_id: hr
+classification_level: 3
+document_type: policy
+effective_date: 2026-03-10
+---
+
+# Performance Appraisal & Promotion Guidelines
+
+## 1. Review Cycles
+- **Mid-Year Check-in (June):** Developmental feedback and KPI calibration.
+- **Annual Performance Appraisal (December):** Formal rating on a 5-point scale (1 = Unsatisfactory to 5 = Exceptional).
+
+## 2. Promotion Eligibility
+To be nominated for promotion, an employee must:
+- Hold their current role for a minimum of **12 months**.
+- Achieve an annual performance rating of **4.0 or higher**.
+- Have zero active disciplinary warnings during the preceding 12-month period.
+
+## 3. Performance Improvement Plans (PIP)
+Employees rated below **2.5** are placed on a structured **60-day Performance Improvement Plan** co-managed by their Line Manager and an HR Business Partner.

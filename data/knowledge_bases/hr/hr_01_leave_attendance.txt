@@ -1,0 +1,23 @@
+---
+tag: synthetic test data
+department_id: hr
+classification_level: 1
+document_type: policy
+effective_date: 2026-01-10
+---
+
+# Employee Leave & Attendance Policy
+
+## 1. Annual Paid Leave
+- Full-time employees accrue **21 working days** of paid annual leave per calendar year (1.75 days per month).
+- Up to **5 unused leave days** may be carried over into Q1 of the following year; excess unused days expire on March 31.
+- Leave requests of 3 or more consecutive days must be submitted at least **2 weeks in advance**.
+
+## 2. Sick Leave
+- Employees are entitled to up to **10 paid sick days** per year.
+- Sick absences exceeding **2 consecutive working days** require a licensed physician's medical certificate attached to the HR portal request.
+
+## 3. Parental & Bereavement Leave
+- **Maternity Leave:** 14 weeks fully paid.
+- **Paternity Leave:** 10 working days fully paid within 6 months of birth.
+- **Bereavement Leave:** Up to 5 working days for immediate family members.

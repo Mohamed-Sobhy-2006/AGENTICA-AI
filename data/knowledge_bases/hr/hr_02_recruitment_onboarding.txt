@@ -1,0 +1,24 @@
+---
+tag: synthetic test data
+department_id: hr
+classification_level: 2
+document_type: procedure
+effective_date: 2026-02-15
+---
+
+# Recruitment, CV Screening & Onboarding Standard Operating Procedure
+
+## 1. Candidate Evaluation Criteria
+All incoming CVs processed through the HR Agent must be evaluated against objective role rubrics:
+- Core technical and domain skills match (40%)
+- Relevant years of hands-on experience (30%)
+- Project impact and problem-solving evidence (20%)
+- Education and relevant certifications (10%)
+
+## 2. Interview Stages & SLA
+1. **HR Screening:** Within 3 business days of application.
+2. **Technical Assessment / Case Study:** Evaluated by hiring team within 4 business days.
+3. **Final Panel Interview:** Completed within 10 business days of initial screening.
+
+## 3. Pre-Onboarding Checklist
+Once an offer letter is signed, HR initiates IT provisioning, background verification, and NDA execution at least **5 business days** prior to the candidate's start date.

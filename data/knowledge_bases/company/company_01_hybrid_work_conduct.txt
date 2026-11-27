@@ -1,0 +1,21 @@
+---
+tag: synthetic test data
+department_id: company
+classification_level: 1
+document_type: handbook
+effective_date: 2026-01-05
+---
+
+# Hybrid Work & Workplace Conduct Handbook
+
+## 1. Core Working Hours
+- Standard company operating hours are **Sunday through Thursday, 9:00 AM to 5:30 PM** (local office time).
+- All employees must be reachable on Slack/Microsoft Teams during core collaboration hours (**10:00 AM to 3:00 PM**).
+
+## 2. Hybrid Work Policy
+- Employees may work remotely up to **2 days per week** with prior team calendar visibility.
+- Mandatory in-office days apply for quarterly planning sessions, client workshops, and onboarding weeks.
+
+## 3. Meeting & Communication Etiquette
+- External emails must include the standard corporate signature block.
+- Internal meetings exceeding 30 minutes require a written agenda distributed at least **4 hours** in advance.

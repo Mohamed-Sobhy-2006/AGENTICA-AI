@@ -1,0 +1,20 @@
+---
+tag: synthetic test data
+department_id: finance
+classification_level: 4
+document_type: confidential_guideline
+effective_date: 2026-04-01
+---
+
+# Executive Budget Reserves & M&A Audit Controls (RESTRICTED)
+
+## 1. Confidentiality Notice
+This document contains restricted Level 4 financial governance rules accessible only to the CFO, Finance Director, and Internal Audit Committee.
+
+## 2. Strategic Reserve Allocation
+- **Contingency Operating Reserve:** 12% of quarterly gross revenue is held in liquid treasury accounts.
+- **Unallocated M&A Diligence Fund:** **$1,500,000.00** earmarked for Q3–Q4 strategic acquisitions; drawdowns require dual executive sign-off (CEO + CFO).
+
+## 3. Internal Audit Triggers
+- Any unbudgeted departmental variance exceeding **8%** triggers an immediate internal audit review.
+- Audit findings involving suspected financial misconduct must be escalated directly to the Board Audit Committee within **24 hours** without notifying operational line managers.

@@ -1,0 +1,23 @@
+---
+tag: synthetic test data
+department_id: hr
+classification_level: 4
+document_type: confidential_guideline
+effective_date: 2026-04-05
+---
+
+# Executive Compensation Bands & Retention Bonus Structure (RESTRICTED)
+
+## 1. Confidentiality Notice
+Strictly restricted Level 4 HR policy. Unauthorized disclosure of salary bands or executive bonus formulas constitutes a breach of confidentiality.
+
+## 2. Annual Compensation Bands (Base Salary USD)
+| Grade Level | Role Tier | Min Base | Midpoint | Max Base |
+| :--- | :--- | :--- | :--- | :--- |
+| L6 | Senior Principal / Lead | $135,000 | $155,000 | $175,000 |
+| L7 | Department Director | $165,000 | $190,000 | $215,000 |
+| L8 | Vice President (VP) | $210,000 | $245,000 | $280,000 |
+
+## 3. Executive Retention & Equity Grants
+- Directors and VPs are eligible for an annual performance bonus of **20% to 35%** of base salary, contingent on company EBITDA targets.
+- Key-person retention grants vest over **36 months** with a 12-month cliff.

@@ -1,0 +1,30 @@
+---
+tag: synthetic test data
+department_id: finance
+classification_level: 2
+document_type: policy
+effective_date: 2026-01-15
+---
+
+# Invoice Approval & Accounts Payable Policy
+
+## 1. Purpose
+This policy establishes standard verification and authorization workflows for incoming supplier invoices processed by the Finance Department and automated Document AI pipelines.
+
+## 2. Three-Way Matching Requirement
+All supplier invoices exceeding **$500.00** must undergo three-way matching prior to disbursement:
+1. Approved Purchase Order (PO)
+2. Goods Receipt Note (GRN) or Service Completion Sign-off
+3. Vendor Tax Invoice showing valid tax registration and itemized line totals
+
+## 3. Approval Authority Matrix
+| Invoice Amount (USD) | Required Approver | SLA Turnaround |
+| :--- | :--- | :--- |
+| Up to $1,000.00 | Automated Finance Agent / Junior Accountant | 1 Business Day |
+| $1,000.01 – $10,000.00 | Finance Manager | 2 Business Days |
+| $10,000.01 – $50,000.00 | Director of Finance | 3 Business Days |
+| Above $50,000.00 | Chief Financial Officer (CFO) | 5 Business Days |
+
+## 4. Escalation & Exception Handling
+- Invoices with missing PO numbers or tax discrepancies greater than **$5.00** must be flagged as `high` priority and routed to the Accounts Payable Specialist queue.
+- Duplicate invoice numbers detected against the ERP ledger are automatically rejected.

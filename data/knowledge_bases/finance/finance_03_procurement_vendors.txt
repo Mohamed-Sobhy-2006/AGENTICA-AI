@@ -1,0 +1,23 @@
+---
+tag: synthetic test data
+department_id: finance
+classification_level: 3
+document_type: procedure
+effective_date: 2026-03-01
+---
+
+# Vendor Onboarding & Procurement Controls
+
+## 1. Vendor Verification Standards
+Before issuing any Purchase Order or initiating wire transfers, new suppliers must submit:
+- Valid Business Registration Certificate
+- Tax Identification / W-9 or W-8BEN-E Form
+- Bank Account Verification Letter on official bank letterhead
+
+## 2. Competitive Bidding Thresholds
+- **Purchases under $5,000:** Single vendor quote is acceptable.
+- **Purchases $5,000 – $25,000:** Minimum of **three (3) written quotes** required.
+- **Purchases above $25,000:** Formal Request for Proposal (RFP) reviewed jointly by Procurement, Legal, and Finance.
+
+## 3. Anti-Fraud Wire Change Protocol
+Any vendor request to modify bank routing or IBAN details via email must be verified via a secondary phone call using pre-registered contact numbers. Email-only bank changes are prohibited to prevent Business Email Compromise (BEC) fraud.

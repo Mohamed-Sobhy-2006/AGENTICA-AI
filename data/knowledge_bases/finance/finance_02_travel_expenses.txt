@@ -1,0 +1,23 @@
+---
+tag: synthetic test data
+department_id: finance
+classification_level: 1
+document_type: policy
+effective_date: 2026-02-01
+---
+
+# Corporate Travel & Expense Reimbursement Policy
+
+## 1. Scope
+Applies to all full-time employees and contractors incurring business-related travel, lodging, or client meal expenses.
+
+## 2. Per Diem & Lodging Caps
+- **Domestic Meals:** Up to **$65.00** per day with itemized receipts.
+- **International Meals:** Up to **$95.00** per day with itemized receipts.
+- **Hotel Lodging:** Standard business room rate up to **$220.00** per night (excluding taxes).
+- **Airfare:** Economy class is mandatory for flights under 6 hours; Premium Economy requires VP approval.
+
+## 3. Submission Deadlines
+- Expense claims must be submitted within **15 calendar days** of trip completion via the Finance Portal.
+- Claims submitted after **30 days** require written justification from the Department Head.
+- Alcohol, personal entertainment, and traffic fines are strictly non-reimbursable.
